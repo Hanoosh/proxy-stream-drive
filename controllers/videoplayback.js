@@ -4,6 +4,7 @@ const request = require('request');
 
 module.exports = (req, res) => {
 
+    console.log(req.headers);
     var url = req.query.url || null;
     var cookie = req.query.cookie || null;
     if(!url || !cookie) return res.end();
