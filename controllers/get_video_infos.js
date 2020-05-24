@@ -8,25 +8,26 @@ const CACHE = new nodeCache();
 
 module.exports = async (req, res) => {
 
-    var fileId = req.query.fileId || null;
+    const fileId = req.query.fileId || null;
     if(!fileId) return res.end('Vui long them query ?fileId={drive-id}');
 
-    var loadCache = CACHE.get(fileId);
+    const loadCache = CACHE.get(fileId);
     if(loadCache) return res.json(loadCache);
 
-    var datas = await getLink(fileId);
+    const datas = await getLink(fileId);
     if(!datas) return res.end('Get link that bai');
     
-    var result = [];
-    var domain = req.protocol + '://' + req.get('host');
-    var cookie = new Buffer.from(JSON.stringify(datas.cookie)).toString('base64');
+    const result = [];
+    // var domain = req.protocol + '://' + req.get('host');
+    const domain = 'eu.drive.cacher1.nightproxy.com';
+    const cookie = new Buffer.from(JSON.stringify(datas.cookie)).toString('base64');
     
-    var sources = datas.sources;
+    const sources = datas.sources;
     for (let i = 0; i < sources.length; i++) {
 
-        var label = sources[i].label;
-        var urnEnc = new Buffer.from(sources[i].file).toString('base64');
-        var file = domain+'/videoplayback?url='+urnEnc+'&cookie='+cookie;
+        const label = sources[i].label;
+        const urnEnc = new Buffer.from(sources[i].file).toString('base64');
+        const file = domain+'/videoplayback?url='+urnEnc+'&cookie='+cookie;
         
         result.push({ file, label, type: 'mp4' });
     }
