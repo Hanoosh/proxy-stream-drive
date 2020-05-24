@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
     
     const result = [];
     // var domain = req.protocol + '://' + req.get('host');
-    const domain = 'eu.drive.cacher1.nightproxy.com';
+    const domain = 'http://eu.drive.cacher1.nightproxy.com';
     const cookie = new Buffer.from(JSON.stringify(datas.cookie)).toString('base64');
     
     const sources = datas.sources;
